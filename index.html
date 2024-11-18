@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Primer Libro Digital</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="book">
+        <!-- Portada -->
+        <div class="page cover">
+            <h1>MI PRIMER LIBRO DIGITAL</h1>
+        </div>
+        <!-- Páginas del libro -->
+        <div class="page">Página 1: Bienvenidos</div>
+        <div class="page">Página 2: Introducción</div>
+        <div class="page">Página 3: Contenido 1</div>
+        <div class="page">Página 4: Contenido 2</div>
+        <div class="page">Página 5: Contenido 3</div>
+        <div class="page">Página 6: Contenido 4</div>
+        <div class="page">Página 7: Contenido 5</div>
+        <div class="page">Página 8: Contenido 6</div>
+        <div class="page">Página 9: Contenido 7</div>
+        <div class="page">Página 10: Fin del Libro</div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="turn.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#book').turn({
+                width: 800,  // Ancho del libro
+                height: 600, // Altura del libro
+                autoCenter: true,
+                elevation: 50
+            });
+        });
+    </script>
+</body>
+</html>
