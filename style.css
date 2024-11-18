@@ -1,0 +1,46 @@
+/* Estilo general del libro */
+#book {
+	width: 800px; /* Ancho del libro */
+	height: 450px; /* Alto del libro, manteniendo la proporción 16:9 */
+	margin: 0 auto; /* Centrar el libro horizontalmente */
+	position: relative;
+  }
+  
+  /* Estilo de cada página */
+  #book .page {
+	width: 100%; /* Página ocupa todo el contenedor del libro */
+	height: 100%;
+	position: relative;
+	overflow: hidden; /* Evita que las imágenes sobresalgan */
+	background: #fff; /* Fondo blanco para cada página */
+	display: flex;
+	justify-content: center; /* Centra el contenido horizontalmente */
+	align-items: center; /* Centra el contenido verticalmente */
+  }
+  
+  /* Estilo de las imágenes dentro de las páginas */
+  #book .page img {
+	width: 100%; /* Escala para llenar el ancho de la página */
+	height: 100%; /* Escala para llenar el alto de la página */
+	object-fit: cover; /* Rellena el espacio sin deformarse */
+  }
+  
+  /* Estilo de la portada */
+  #book .cover {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Arial', sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	background: #8e44ad; /* Color de fondo de la portada */
+	color: white; /* Texto blanco */
+	width: 100%;
+	height: 100%;
+  }
+
+  body{
+	background-color: antiquewhite;
+  }
+  

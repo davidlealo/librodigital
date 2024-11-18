@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MI primer libro digital</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<div id="book">
+  <div class="cover"><h1>Mi primer libro digital</h1></div>
+</div>
+
+<div id="controls">
+  <label for="page-number">Page:</label> <input type="text" size="3" id="page-number"> of <span id="number-pages"></span>
+</div>
+
+<div><p>De esta forma ChatGPT me ayudó a hacer este sitio: <a href="https://chatgpt.com/share/673b3e02-f458-8010-a4a9-bb09752ac8b3" target="_blank">link</a></p></div>
+
+<script type="text/javascript">
+  // Número total de páginas
+  var numberOfPages = 8;
+
+  // URLs de las imágenes
+  var imageUrls = [
+    '', // Página 1 (portada, sin imagen)
+    'img/1.png', // Página 2
+    'img/2.png', // Página 3
+    'img/3.png', // Página 4
+    'img/4.png', // Página 5
+    'img/5.png', // Página 6
+    'img/6.png', // Página 7
+    'img/7.png', // Página 8
+    
+  ];
+
+  // Agrega las páginas necesarias al libro
+  function addPage(page, book) {
+    if (!book.turn('hasPage', page)) {
+      // Crea el elemento para la página
+      var element = $('<div />', {
+        'class': 'page ' + ((page % 2 == 0) ? 'odd' : 'even'),
+        'id': 'page-' + page
+      });
+
+      // Si la página tiene una imagen asociada, la añade
+      if (imageUrls[page - 1]) {
+        element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" style="width:100%; height:auto;">');
+      } else {
+        element.html('<div class="data">Contenido para la página ' + page + '</div>');
+      }
+
+      // Añade la página al libro
+      book.turn('addPage', element, page);
+    }
+  }
+
+  $(window).ready(function () {
+    $('#book').turn({
+      acceleration: true,
+      pages: numberOfPages,
+      elevation: 50,
+      gradients: !$.isTouch,
+      when: {
+        turning: function (e, page, view) {
+          var range = $(this).turn('range', page);
+          for (page = range[0]; page <= range[1]; page++) 
+            addPage(page, $(this));
+        },
+        turned: function (e, page) {
+          $('#page-number').val(page);
+        }
+      }
+    });
+
+    $('#number-pages').html(numberOfPages);
+
+    $('#page-number').keydown(function (e) {
+      if (e.keyCode == 13)
+        $('#book').turn('page', $('#page-number').val());
+    });
+  });
+
+  $(window).bind('keydown', function (e) {
+    if (e.target && e.target.tagName.toLowerCase() != 'input') {
+      if (e.keyCode == 37) $('#book').turn('previous');
+      else if (e.keyCode == 39) $('#book').turn('next');
+    }
+  });
+</script>
+
+<script src="./script.js"></script>
+</body>
+</html>
