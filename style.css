@@ -1,46 +1,117 @@
 /* Estilo general del libro */
 #book {
-	width: 800px; /* Ancho del libro */
-	height: 450px; /* Alto del libro, manteniendo la proporción 16:9 */
-	margin: 0 auto; /* Centrar el libro horizontalmente */
+	width: 800px;
+	margin: 20px auto;
 	position: relative;
-  }
-  
-  /* Estilo de cada página */
-  #book .page {
-	width: 100%; /* Página ocupa todo el contenedor del libro */
+	height: 450px;
+}
+
+#book::before,
+#book::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	width: 50px;
+	/* Tamaño del área activa */
 	height: 100%;
+	z-index: 1;
+}
+
+#book::before {
+	left: 0;
+	background: rgba(0, 0, 0, 0.05); /* Transparencia para indicar borde izquierdo */
+  }
+  
+  #book::after {
+	right: 0;
+	background: rgba(0, 0, 0, 0.05); /* Transparencia para indicar borde derecho */
+  }
+
+#book .page {
+	width: 100%;
+	aspect-ratio: 16 / 9;
 	position: relative;
-	overflow: hidden; /* Evita que las imágenes sobresalgan */
-	background: #fff; /* Fondo blanco para cada página */
+	overflow: hidden;
+	background: #fff;
 	display: flex;
-	justify-content: center; /* Centra el contenido horizontalmente */
-	align-items: center; /* Centra el contenido verticalmente */
-  }
-  
-  /* Estilo de las imágenes dentro de las páginas */
-  #book .page img {
-	width: 100%; /* Escala para llenar el ancho de la página */
-	height: 100%; /* Escala para llenar el alto de la página */
-	object-fit: cover; /* Rellena el espacio sin deformarse */
-  }
-  
-  /* Estilo de la portada */
-  #book .cover {
+	justify-content: center;
+	align-items: center;
+}
+
+#book .page img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#book .cover {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	font-family: 'Arial', sans-serif;
-	font-size: 24px;
+	font-size: 3vw;
 	font-weight: bold;
 	text-align: center;
-	background: #8e44ad; /* Color de fondo de la portada */
-	color: white; /* Texto blanco */
+	background: #8e44ad;
+	color: white;
+	padding: 30px;
 	width: 100%;
 	height: 100%;
-  }
+}
 
-  body{
+body {
 	background-color: antiquewhite;
-  }
-  
+}
+
+/* Controles de navegación */
+#controls {
+	text-align: center;
+	margin: 10px auto;
+}
+
+#navigation {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 10px auto;
+	max-width: 800px;
+}
+
+#navigation button {
+	background-color: #8e44ad;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	font-size: 16px;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+#navigation button:hover {
+	background-color: #6c3483;
+}
+
+#navigation button:disabled {
+	background-color: #ccc;
+	cursor: not-allowed;
+}
+
+/* Barra de progreso */
+#progress-bar {
+	width: 100%;
+	max-width: 800px;
+	height: 8px;
+	background-color: #ddd;
+	margin: 10px auto;
+	position: relative;
+	border-radius: 4px;
+}
+
+#progress {
+	width: 0;
+	height: 100%;
+	background-color: #8e44ad;
+	border-radius: 4px;
+	transition: width 0.3s ease;
+}

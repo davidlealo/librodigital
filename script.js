@@ -1908,7 +1908,36 @@ $.extend($.fn, {
 	}
 });
 
+// Extender Turn.js para habilitar bordes laterales
+(function ($) {
+	const originalCornerActivated = $.fn.turn.methods._cornerActivated;
+  
+	// Sobrescribe la función _cornerActivated
+	$.fn.turn.methods._cornerActivated = function (e) {
+	  const originalResult = originalCornerActivated.call(this, e);
+  
+	  // Si ya detectó una esquina, no es necesario continuar
+	  if (originalResult) return originalResult;
+  
+	  const offset = $(this).offset();
+	  const width = $(this).width();
+	  const height = $(this).height();
+	  const x = e.pageX - offset.left;
+	  const y = e.pageY - offset.top;
+	  const edgeSize = 50; // Tamaño del área activa en los laterales
+  
+	  // Detectar bordes laterales
+	  if (x <= edgeSize) return { corner: 'left-edge', x, y };
+	  if (x >= width - edgeSize) return { corner: 'right-edge', x, y };
+  
+	  // No hay borde activo
+	  return false;
+	};
+  })
+
 
 $.isTouch = isTouch;
+
+
 
 })(jQuery);

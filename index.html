@@ -10,13 +10,23 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
 
-<div id="book">
-  <div class="cover"><h1>Mi primer libro digital</h1></div>
-</div>
+  <div id="book">
+    <div class="cover"><h2>Mi primer libro digital</h2></div>
+  </div>
 
-<div id="controls">
-  <label for="page-number">Page:</label> <input type="text" size="3" id="page-number"> of <span id="number-pages"></span>
-</div>
+  <div id="controls">
+    <label for="page-number">Página:</label>
+    <input type="text" size="3" id="page-number"> de <span id="number-pages"></span>
+  </div>
+
+  <div id="navigation">
+    <button id="prev-page" disabled>❮</button>
+    <button id="next-page">❯</button>
+  </div>
+
+  <div id="progress-bar">
+    <div id="progress"></div>
+  </div>
 
 <div><p>De esta forma ChatGPT me ayudó a hacer este sitio: <a href="https://chatgpt.com/share/673b3e02-f458-8010-a4a9-bb09752ac8b3" target="_blank">link</a></p></div>
 
@@ -59,6 +69,7 @@
     }
   }
 
+
   $(window).ready(function () {
     $('#book').turn({
       acceleration: true,
@@ -84,6 +95,7 @@
         $('#book').turn('page', $('#page-number').val());
     });
   });
+  
 
   $(window).bind('keydown', function (e) {
     if (e.target && e.target.tagName.toLowerCase() != 'input') {
@@ -91,6 +103,21 @@
       else if (e.keyCode == 39) $('#book').turn('next');
     }
   });
+// Agrega funcionalidad a los botones
+document.getElementById('prev-page').addEventListener('click', () => {
+  $('#book').turn('previous');
+});
+
+document.getElementById('next-page').addEventListener('click', () => {
+  $('#book').turn('next');
+});
+
+// Desactiva botones al inicio/final
+$('#book').on('turned', function (event, page) {
+  document.getElementById('prev-page').disabled = page === 1;
+  document.getElementById('next-page').disabled = page === numberOfPages;
+});
+  
 </script>
 
 <script src="./script.js"></script>
