@@ -51,98 +51,83 @@
   <script type="text/javascript">
     // Número total de páginas
     var numberOfPages = 9;
-
-    // URLs de las imágenes
-    var imageUrls = [
-      '', // Página 1 (portada, sin imagen)
-      'imagenes/1.png', // Página 2
-      'imagenes/2.png', // Página 3
-      'imagenes/3.png', // Página 4
-      'imagenes/4.png', // Página 5
-      'imagenes/5.png', // Página 6
-      'imagenes/6.png', // Página 7
-      'imagenes/8.png', // Página 8
-      'imagenes/9.png', // Página 9
-
-    ];
-
-    // Agrega las páginas necesarias al libro
-    function addPage(page, book) {
-      if (!book.turn('hasPage', page)) {
-        // Crea el elemento para la página
-        var element = $('<div />', {
-          'class': 'page ' + ((page % 2 == 0) ? 'odd' : 'even'),
-          'id': 'page-' + page
-        });
-
-        // Si la página tiene una imagen asociada, la añade
-        if (imageUrls[page - 1]) {
-          element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" style="width:100%; height:auto;">');
-        } else {
-          element.html('<div class="data">Contenido para la página ' + page + '</div>');
-        }
-
-        // Añade la página al libro
-        book.turn('addPage', element, page);
-      }
-    }
-
-
-    $(window).ready(function () {
+  
+    // Cargar dinámicamente URLs de imágenes desde metadata.json
+    $.getJSON('/imagenes/metadata.json', function (data) {
+      const imageUrls = [''].concat(data.images.map(img => `/imagenes/${img}`));
+  
+      // Inicializar el libro
       $('#book').turn({
         acceleration: true,
-        pages: numberOfPages,
+        pages: imageUrls.length,
         elevation: 50,
         gradients: !$.isTouch,
         when: {
-          turning: function (e, page, view) {
+          turning: function (e, page) {
             var range = $(this).turn('range', page);
-            for (page = range[0]; page <= range[1]; page++)
-              addPage(page, $(this));
+            for (page = range[0]; page <= range[1]; page++) addPage(page, $(this));
           },
-          turned: function (e, page) {
-            $('#page-number').val(page);
-          }
-        }
+        },
       });
-
+  
+      // Función para agregar páginas al libro
+      function addPage(page, book) {
+        if (!book.turn('hasPage', page)) {
+          const element = $('<div />', {
+            'class': 'page ' + (page % 2 === 0 ? 'odd' : 'even'),
+            'id': 'page-' + page,
+          });
+  
+          if (imageUrls[page - 1]) {
+            element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" />');
+          } else {
+            element.html('<div class="data">Contenido para la página ' + page + '</div>');
+          }
+  
+          book.turn('addPage', element, page);
+        }
+      }
+    });
+  
+    $(window).ready(function () {
       $('#number-pages').html(numberOfPages);
-
+  
       $('#page-number').keydown(function (e) {
         if (e.keyCode == 13)
           $('#book').turn('page', $('#page-number').val());
       });
     });
-
-
+  
     $(window).bind('keydown', function (e) {
-      if (e.target && e.target.tagName.toLowerCase() != 'input') {
+      if (e.target && e.target.tagName.toLowerCase() !== 'input') {
         if (e.keyCode == 37) $('#book').turn('previous');
         else if (e.keyCode == 39) $('#book').turn('next');
       }
     });
-    // Agrega funcionalidad a los botones
+  
+    // Botones de navegación
     document.getElementById('prev-page').addEventListener('click', () => {
       $('#book').turn('previous');
     });
-
+  
     document.getElementById('next-page').addEventListener('click', () => {
       $('#book').turn('next');
     });
-
-    // Desactiva botones al inicio/final
+  
+    // Desactivar botones al inicio/final
     $('#book').on('turned', function (event, page) {
       document.getElementById('prev-page').disabled = page === 1;
       document.getElementById('next-page').disabled = page === numberOfPages;
     });
-
+  
+    // Formulario de subida de imágenes
     $('#upload-form').on('submit', function (e) {
       e.preventDefault();
-
+  
       const formData = new FormData();
       const fileInput = document.getElementById('image-upload');
       formData.append('image', fileInput.files[0]);
-
+  
       $.ajax({
         url: '/upload',
         type: 'POST',
@@ -158,7 +143,7 @@
         },
       });
     });
-  </script>
+  </script>  
 
   <script src="./script.js"></script>
 </body>
