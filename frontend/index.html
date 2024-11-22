@@ -1,126 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Mi primer libro digital</title>
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-	<script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
-
-<div class="container">
-  <div id="book">
-    <div class="cover"><h2>Mi libro </br>primer digital</h2></div>
+  <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+  <div class="upload-container">
+    <form id="upload-form">
+      <label for="image-upload">Subir nueva imagen:</label>
+      <input type="file" id="image-upload" name="image" required />
+      <button type="submit">Subir</button>
+    </form>
+    <div id="upload-status"></div>
   </div>
 
-  <div id="controls">
-    <label for="page-number">Página:</label>
-    <input type="text" size="3" id="page-number"> de <span id="number-pages"></span>
+
+
+  <div class="container">
+    <div id="book">
+      <div class="cover">
+        <h2>Mi libro </br>primer digital</h2>
+      </div>
+    </div>
+
+    <div id="controls">
+      <label for="page-number">Página:</label>
+      <input type="text" size="3" id="page-number"> de <span id="number-pages"></span>
+    </div>
+
+    <div id="navigation">
+      <button id="prev-page" disabled>❮</button>
+      <div class="space-button"></div>
+      <button id="next-page">❯</button>
+    </div>
+
+    <div id="progress-bar">
+      <div id="progress"></div>
+    </div>
+
+    <div>
+      <p>De esta forma ChatGPT me ayudó a hacer este sitio: <a
+          href="https://chatgpt.com/share/673b3e02-f458-8010-a4a9-bb09752ac8b3" target="_blank">link</a></p>
+    </div>
   </div>
+  <script type="text/javascript">
+    // Número total de páginas
+    var numberOfPages = 9;
 
-  <div id="navigation">
-    <button id="prev-page" disabled>❮</button>
-    <div class="space-button"></div>
-    <button id="next-page">❯</button>
-  </div>
+    // URLs de las imágenes
+    var imageUrls = [
+      '', // Página 1 (portada, sin imagen)
+      'imagenes/1.png', // Página 2
+      'imagenes/2.png', // Página 3
+      'imagenes/3.png', // Página 4
+      'imagenes/4.png', // Página 5
+      'imagenes/5.png', // Página 6
+      'imagenes/6.png', // Página 7
+      'imagenes/8.png', // Página 8
+      'imagenes/9.png', // Página 9
 
-  <div id="progress-bar">
-    <div id="progress"></div>
-  </div>
+    ];
 
-<div><p>De esta forma ChatGPT me ayudó a hacer este sitio: <a href="https://chatgpt.com/share/673b3e02-f458-8010-a4a9-bb09752ac8b3" target="_blank">link</a></p></div>
-</div>
-<script type="text/javascript">
-  // Número total de páginas
-  var numberOfPages = 9;
+    // Agrega las páginas necesarias al libro
+    function addPage(page, book) {
+      if (!book.turn('hasPage', page)) {
+        // Crea el elemento para la página
+        var element = $('<div />', {
+          'class': 'page ' + ((page % 2 == 0) ? 'odd' : 'even'),
+          'id': 'page-' + page
+        });
 
-  // URLs de las imágenes
-  var imageUrls = [
-    '', // Página 1 (portada, sin imagen)
-    'imagenes/1.png', // Página 2
-    'imagenes/2.png', // Página 3
-    'imagenes/3.png', // Página 4
-    'imagenes/4.png', // Página 5
-    'imagenes/5.png', // Página 6
-    'imagenes/6.png', // Página 7
-    'imagenes/8.png', // Página 8
-    'imagenes/9.png', // Página 9
-    
-  ];
+        // Si la página tiene una imagen asociada, la añade
+        if (imageUrls[page - 1]) {
+          element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" style="width:100%; height:auto;">');
+        } else {
+          element.html('<div class="data">Contenido para la página ' + page + '</div>');
+        }
 
-  // Agrega las páginas necesarias al libro
-  function addPage(page, book) {
-    if (!book.turn('hasPage', page)) {
-      // Crea el elemento para la página
-      var element = $('<div />', {
-        'class': 'page ' + ((page % 2 == 0) ? 'odd' : 'even'),
-        'id': 'page-' + page
+        // Añade la página al libro
+        book.turn('addPage', element, page);
+      }
+    }
+
+
+    $(window).ready(function () {
+      $('#book').turn({
+        acceleration: true,
+        pages: numberOfPages,
+        elevation: 50,
+        gradients: !$.isTouch,
+        when: {
+          turning: function (e, page, view) {
+            var range = $(this).turn('range', page);
+            for (page = range[0]; page <= range[1]; page++)
+              addPage(page, $(this));
+          },
+          turned: function (e, page) {
+            $('#page-number').val(page);
+          }
+        }
       });
 
-      // Si la página tiene una imagen asociada, la añade
-      if (imageUrls[page - 1]) {
-        element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" style="width:100%; height:auto;">');
-      } else {
-        element.html('<div class="data">Contenido para la página ' + page + '</div>');
+      $('#number-pages').html(numberOfPages);
+
+      $('#page-number').keydown(function (e) {
+        if (e.keyCode == 13)
+          $('#book').turn('page', $('#page-number').val());
+      });
+    });
+
+
+    $(window).bind('keydown', function (e) {
+      if (e.target && e.target.tagName.toLowerCase() != 'input') {
+        if (e.keyCode == 37) $('#book').turn('previous');
+        else if (e.keyCode == 39) $('#book').turn('next');
       }
+    });
+    // Agrega funcionalidad a los botones
+    document.getElementById('prev-page').addEventListener('click', () => {
+      $('#book').turn('previous');
+    });
 
-      // Añade la página al libro
-      book.turn('addPage', element, page);
-    }
-  }
+    document.getElementById('next-page').addEventListener('click', () => {
+      $('#book').turn('next');
+    });
 
+    // Desactiva botones al inicio/final
+    $('#book').on('turned', function (event, page) {
+      document.getElementById('prev-page').disabled = page === 1;
+      document.getElementById('next-page').disabled = page === numberOfPages;
+    });
 
-  $(window).ready(function () {
-    $('#book').turn({
-      acceleration: true,
-      pages: numberOfPages,
-      elevation: 50,
-      gradients: !$.isTouch,
-      when: {
-        turning: function (e, page, view) {
-          var range = $(this).turn('range', page);
-          for (page = range[0]; page <= range[1]; page++) 
-            addPage(page, $(this));
+    $('#upload-form').on('submit', function (e) {
+      e.preventDefault();
+
+      const formData = new FormData();
+      const fileInput = document.getElementById('image-upload');
+      formData.append('image', fileInput.files[0]);
+
+      $.ajax({
+        url: '/upload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          $('#upload-status').text(response.message);
+          location.reload(); // Recargar la página para ver las nuevas imágenes
         },
-        turned: function (e, page) {
-          $('#page-number').val(page);
-        }
-      }
+        error: function (error) {
+          $('#upload-status').text('Error al subir la imagen');
+        },
+      });
     });
+  </script>
 
-    $('#number-pages').html(numberOfPages);
-
-    $('#page-number').keydown(function (e) {
-      if (e.keyCode == 13)
-        $('#book').turn('page', $('#page-number').val());
-    });
-  });
-  
-
-  $(window).bind('keydown', function (e) {
-    if (e.target && e.target.tagName.toLowerCase() != 'input') {
-      if (e.keyCode == 37) $('#book').turn('previous');
-      else if (e.keyCode == 39) $('#book').turn('next');
-    }
-  });
-// Agrega funcionalidad a los botones
-document.getElementById('prev-page').addEventListener('click', () => {
-  $('#book').turn('previous');
-});
-
-document.getElementById('next-page').addEventListener('click', () => {
-  $('#book').turn('next');
-});
-
-// Desactiva botones al inicio/final
-$('#book').on('turned', function (event, page) {
-  document.getElementById('prev-page').disabled = page === 1;
-  document.getElementById('next-page').disabled = page === numberOfPages;
-});
-  
-</script>
-
-<script src="./script.js"></script>
+  <script src="./script.js"></script>
 </body>
+
 </html>
