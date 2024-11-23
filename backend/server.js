@@ -1,5 +1,5 @@
-// /server/index.js
 const express = require('express');
+const cors = require('cors'); // Importar CORS
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
@@ -7,12 +7,14 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Configurar multer para subir archivos
+// Habilitar CORS para todas las solicitudes
+app.use(cors());
+
+// Configuración de multer para subida de archivos
 const upload = multer({ dest: 'imagenes/' });
 
-// Middleware para servir la carpeta pública
-app.use(express.static('public'));
-app.use(express.json());
+// Middleware para servir la carpeta de imágenes como estática
+app.use('/imagenes', express.static(path.join(__dirname, 'imagenes')));
 
 // Endpoint para subir imágenes
 app.post('/upload', upload.single('image'), (req, res) => {
@@ -28,7 +30,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
     // Renombrar el archivo con su nombre original
     fs.renameSync(file.path, newImagePath);
 
-    // Actualizar metadatos
+    // Leer y actualizar metadata.json
     const metadata = fs.existsSync(metadataFile)
         ? JSON.parse(fs.readFileSync(metadataFile))
         : { images: [] };
@@ -41,5 +43,5 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
 // Iniciar el servidor
 app.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
