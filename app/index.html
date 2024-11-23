@@ -66,7 +66,7 @@
         ? 'http://localhost:3000' // En desarrollo
         : window.location.origin; // En producción, usa el dominio del despliegue
 
-      let currentTitle = "Mi libro </br>primer digital";
+      let currentTitle = "Mi primer </br>libro digital";
 
       // Función para cargar el libro
       function loadBook() {
@@ -148,6 +148,7 @@
           contentType: false,
           success: function (response) {
             $('#upload-status').text(response.message);
+            window.location.reload();
             loadBook(); // Recargar el libro con las nuevas imágenes
           },
           error: function (error) {
