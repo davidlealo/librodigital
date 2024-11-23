@@ -1,20 +1,23 @@
 const express = require('express');
-const cors = require('cors'); // Importar CORS
+const cors = require('cors');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
 
-// Habilitar CORS para todas las solicitudes
+// Leer el puerto desde variables de entorno o usar 3000 como predeterminado
+const PORT = process.env.PORT || 3000;
+
+// Configuración de CORS
 app.use(cors());
 
-// Configuración de multer para subida de archivos
-const upload = multer({ dest: 'imagenes/' });
-
-// Middleware para servir la carpeta de imágenes como estática
+// Servir archivos estáticos (frontend y carpeta de imágenes)
+app.use(express.static(path.join(__dirname, 'frontend')));
 app.use('/imagenes', express.static(path.join(__dirname, 'imagenes')));
+
+// Configuración de multer para subir imágenes
+const upload = multer({ dest: 'imagenes/' });
 
 // Endpoint para subir imágenes
 app.post('/upload', upload.single('image'), (req, res) => {
@@ -26,11 +29,8 @@ app.post('/upload', upload.single('image'), (req, res) => {
     }
 
     const newImagePath = path.join('imagenes', file.originalname);
-
-    // Renombrar el archivo con su nombre original
     fs.renameSync(file.path, newImagePath);
 
-    // Leer y actualizar metadata.json
     const metadata = fs.existsSync(metadataFile)
         ? JSON.parse(fs.readFileSync(metadataFile))
         : { images: [] };
