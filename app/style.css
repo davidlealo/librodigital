@@ -275,3 +275,25 @@ body {
 	align-items: center;
 	justify-content: center;
 }
+
+/* Estilo para el summary en orientación vertical */
+details summary {
+  writing-mode: vertical-rl;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  user-select: none;
+}
+
+/* Opcional: mejora de apariencia */
+details[open] summary {
+  background-color: #ddd;
+  font-weight: bold;
+}
+
+details summary:hover {
+  background-color: #eaeaea;
+}

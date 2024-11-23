@@ -13,20 +13,25 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
   <!-- Contenedor para configurar el libro -->
-  <div class="config-container">
-    <label for="book-title">Título del libro:</label>
-    <input type="text" id="book-title" placeholder="Escribe el título de tu libro" />
-    <button id="update-title" class="button-19">Actualizar Título</button>
-  </div>
+  <div class="side-bar">
+    <details>
+      <summary>Personalización</summary>
+      <div class="config-container">
+        <label for="book-title">Título del libro:</label>
+        <input type="text" id="book-title" placeholder="Escribe el título de tu libro" />
+        <button id="update-title" class="button-19">Actualizar Título</button>
+      </div>
 
-  <!-- Contenedor para subir imágenes -->
-  <div class="upload-container">
-    <form id="upload-form">
-      <label for="image-upload">Subir nueva imagen:</label>
-      <input type="file" id="image-upload" name="image" required />
-      <button type="submit" class="button-19">Subir</button>
-    </form>
-    <div id="upload-status"></div>
+      <!-- Contenedor para subir imágenes -->
+      <div class="upload-container">
+        <form id="upload-form">
+          <label for="image-upload">Subir nueva imagen:</label>
+          <input type="file" id="image-upload" name="image" required />
+          <button type="submit" class="button-19">Subir</button>
+        </form>
+        <div id="upload-status"></div>
+      </div>
+    </details>
   </div>
 
   <!-- Contenedor principal -->
