@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title>Mi primer libro digital</title>
   <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
+  <!-- Librerías necesarias -->
   <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+
+  <!-- Contenedor para subir imágenes -->
   <div class="upload-container">
     <form id="upload-form">
       <label for="image-upload">Subir nueva imagen:</label>
@@ -19,8 +20,7 @@
     <div id="upload-status"></div>
   </div>
 
-
-
+  <!-- Contenedor principal -->
   <div class="container">
     <div id="book">
       <div class="cover">
@@ -42,117 +42,98 @@
     <div id="progress-bar">
       <div id="progress"></div>
     </div>
-
-    <div>
-      <p>De esta forma ChatGPT me ayudó a hacer este sitio: <a
-          href="https://chatgpt.com/share/673b3e02-f458-8010-a4a9-bb09752ac8b3" target="_blank">link</a></p>
-    </div>
   </div>
+
+  <!-- Lógica del libro y formulario -->
   <script type="text/javascript">
-    // Número total de páginas
-    var numberOfPages = 9;
+    $(document).ready(function () {
+      // Cargar las imágenes desde metadata.json y configurar el libro
+      function loadBook() {
+        $.getJSON('http://localhost:3000/imagenes/metadata.json', function (data) {
+          const imageUrls = [''].concat(data.images.map(img => `/imagenes/${img}`));
+          const numberOfPages = imageUrls.length;
 
-    // Cargar dinámicamente URLs de imágenes desde metadata.json
-    $.getJSON('/imagenes/metadata.json', function (data) {
-      const imageUrls = [''].concat(data.images.map(img => `/imagenes/${img}`));
-
-      // Inicializar el libro
-      $('#book').turn({
-        acceleration: true,
-        pages: imageUrls.length,
-        elevation: 50,
-        gradients: !$.isTouch,
-        when: {
-          turning: function (e, page) {
-            var range = $(this).turn('range', page);
-            for (page = range[0]; page <= range[1]; page++) addPage(page, $(this));
-          },
-        },
-      });
-
-      // Función para agregar páginas al libro
-      function addPage(page, book) {
-        if (!book.turn('hasPage', page)) {
-          const element = $('<div />', {
-            'class': 'page ' + (page % 2 === 0 ? 'odd' : 'even'),
-            'id': 'page-' + page,
+          // Configuración del libro
+          $('#book').turn({
+            acceleration: true,
+            pages: numberOfPages,
+            elevation: 50,
+            gradients: true,
+            when: {
+              turning: function (e, page) {
+                var range = $(this).turn('range', page);
+                for (page = range[0]; page <= range[1]; page++) addPage(page, $(this));
+              },
+            },
           });
 
-          if (imageUrls[page - 1]) {
-            element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" />');
-          } else {
-            element.html('<div class="data">Contenido para la página ' + page + '</div>');
+          // Actualizar el número total de páginas
+          $('#number-pages').text(numberOfPages);
+
+          // Función para agregar páginas al libro
+          function addPage(page, book) {
+            if (!book.turn('hasPage', page)) {
+              const element = $('<div />', {
+                'class': 'page ' + (page % 2 === 0 ? 'odd' : 'even'),
+                'id': 'page-' + page,
+              });
+
+              if (imageUrls[page - 1]) {
+                element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" />');
+              } else {
+                element.html('<div class="data">Contenido para la página ' + page + '</div>');
+              }
+
+              book.turn('addPage', element, page);
+            }
           }
 
-          book.turn('addPage', element, page);
-        }
+          // Actualizar botones de navegación
+          $('#book').on('turned', function (event, page) {
+            document.getElementById('prev-page').disabled = page === 1;
+            document.getElementById('next-page').disabled = page === numberOfPages;
+          });
+
+          // Botones de navegación
+          document.getElementById('prev-page').addEventListener('click', () => {
+            $('#book').turn('previous');
+          });
+
+          document.getElementById('next-page').addEventListener('click', () => {
+            $('#book').turn('next');
+          });
+        });
       }
-    });
 
-    $(window).ready(function () {
-      $('#number-pages').html(numberOfPages);
+      // Cargar el libro al iniciar
+      loadBook();
 
-      $('#page-number').keydown(function (e) {
-        if (e.keyCode == 13)
-          $('#book').turn('page', $('#page-number').val());
+      // Subir una nueva imagen
+      $('#upload-form').on('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        const fileInput = document.getElementById('image-upload');
+        formData.append('image', fileInput.files[0]);
+
+        $.ajax({
+          url: 'http://localhost:3000/upload',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            $('#upload-status').text(response.message);
+            loadBook(); // Recargar el libro con las nuevas imágenes
+          },
+          error: function (error) {
+            $('#upload-status').text('Error al subir la imagen');
+          },
+        });
       });
-    });
-
-    $(window).bind('keydown', function (e) {
-      if (e.target && e.target.tagName.toLowerCase() !== 'input') {
-        if (e.keyCode == 37) $('#book').turn('previous');
-        else if (e.keyCode == 39) $('#book').turn('next');
-      }
-    });
-
-    // Botones de navegación
-    document.getElementById('prev-page').addEventListener('click', () => {
-      $('#book').turn('previous');
-    });
-
-    document.getElementById('next-page').addEventListener('click', () => {
-      $('#book').turn('next');
-    });
-
-    // Desactivar botones al inicio/final
-    $('#book').on('turned', function (event, page) {
-      document.getElementById('prev-page').disabled = page === 1;
-      document.getElementById('next-page').disabled = page === numberOfPages;
-    });
-
-    // Formulario de subida de imágenes
-    $('#upload-form').on('submit', function (e) {
-      e.preventDefault();
-
-      const formData = new FormData();
-      const fileInput = document.getElementById('image-upload');
-      formData.append('image', fileInput.files[0]);
-
-      // En la solicitud de JSON
-      $.getJSON('http://localhost:3000/imagenes/metadata.json', function (data) {
-        // lógica para cargar imágenes
-      });
-
-      // En la solicitud de subida
-      $.ajax({
-        url: 'http://localhost:3000/upload', // Cambiar al backend
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          $('#upload-status').text(response.message);
-          location.reload();
-        },
-        error: function (error) {
-          $('#upload-status').text('Error al subir la imagen');
-        },
-      });
-
     });
   </script>
 
   <script src="./script.js"></script>
 </body>
-
 </html>
