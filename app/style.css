@@ -276,24 +276,41 @@ body {
 	justify-content: center;
 }
 
-/* Estilo para el summary en orientación vertical */
+/* Estilo general del summary cuando está cerrado (posición vertical) */
 details summary {
   writing-mode: vertical-rl;
   text-align: center;
   cursor: pointer;
   padding: 10px;
-  background-color: #f4f4f4;
+  background-color: #1CB0F6;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
   border: 1px solid #ddd;
   border-radius: 5px;
   user-select: none;
+  transition: all 0.3s ease; /* Transición suave */
 }
 
-/* Opcional: mejora de apariencia */
+/* Estilo cuando el summary está abierto (posición horizontal) */
 details[open] summary {
-  background-color: #ddd;
+  writing-mode: horizontal-tb; /* Cambia a posición horizontal */
+  background-color: #1CB0F6;
+  color: white;
+  font-size: 20px; /* Incrementar el tamaño */
   font-weight: bold;
+  text-align: left;
+  padding: 15px;
+  border-radius: 5px 5px 0 0; /* Redondear las esquinas superiores */
+  border-bottom: none; /* Quitar borde inferior */
 }
 
+/* Hover para ambos estados */
 details summary:hover {
-  background-color: #eaeaea;
+  background-color: #1399D5; /* Cambiar tono al pasar el cursor */
+}
+
+/* Contenedor del details (opcional, para margen o posicionamiento) */
+details {
+  margin: 10px;
 }
