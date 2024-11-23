@@ -12,6 +12,13 @@
   <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
+  <!-- Contenedor para configurar el libro -->
+  <div class="config-container">
+    <label for="book-title">Título del libro:</label>
+    <input type="text" id="book-title" placeholder="Escribe el título de tu libro" />
+    <button id="update-title" class="button-19">Actualizar Título</button>
+  </div>
+
   <!-- Contenedor para subir imágenes -->
   <div class="upload-container">
     <form id="upload-form">
@@ -26,7 +33,7 @@
   <div class="container">
     <div id="book">
       <div class="cover">
-        <h2>Mi libro </br>primer digital</h2>
+        <h2 id="book-cover-title">Mi libro </br>primer digital</h2>
       </div>
     </div>
 
@@ -54,6 +61,8 @@
         ? 'http://localhost:3000' // En desarrollo
         : window.location.origin; // En producción, usa el dominio del despliegue
 
+      let currentTitle = "Mi libro </br>primer digital";
+
       // Función para cargar el libro
       function loadBook() {
         $.getJSON(`${backendURL}/imagenes/metadata.json`, function (data) {
@@ -61,7 +70,7 @@
           const numberOfPages = imageUrls.length;
 
           // Limpiar y reinicializar el contenedor del libro
-          $('#book').html('<div class="cover"><h2>Mi libro </br>primer digital</h2></div>'); // Restablecer portada
+          $('#book').html(`<div class="cover"><h2 id="book-cover-title">${currentTitle}</h2></div>`); // Restablecer portada
 
           // Inicializar el libro
           $('#book').turn({
@@ -140,6 +149,15 @@
             $('#upload-status').text('Error al subir la imagen');
           },
         });
+      });
+
+      // Cambiar el título del libro
+      $('#update-title').on('click', function () {
+        const newTitle = $('#book-title').val().trim();
+        if (newTitle) {
+          currentTitle = newTitle;
+          $('#book-cover-title').html(currentTitle); // Actualizar el título en la portada
+        }
       });
     });
   </script>
