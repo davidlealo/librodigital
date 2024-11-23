@@ -49,10 +49,15 @@
   <!-- Lógica del libro y formulario -->
   <script type="text/javascript">
     $(document).ready(function () {
-      // Cargar las imágenes desde metadata.json y configurar el libro
+      // Detectar automáticamente la URL del backend
+      const backendURL = window.location.origin.includes('localhost')
+        ? 'http://localhost:3000' // En desarrollo
+        : window.location.origin; // En producción, usa el dominio del despliegue
+
+      // Función para cargar el libro
       function loadBook() {
-        $.getJSON('http://localhost:3000/imagenes/metadata.json', function (data) {
-          const imageUrls = [''].concat(data.images.map(img => `http://localhost:3000/imagenes/${img}`));
+        $.getJSON(`${backendURL}/imagenes/metadata.json`, function (data) {
+          const imageUrls = [''].concat(data.images.map(img => `${backendURL}/imagenes/${img}`));
           const numberOfPages = imageUrls.length;
 
           // Destruir el libro si ya está inicializado
@@ -127,7 +132,7 @@
         formData.append('image', fileInput.files[0]);
 
         $.ajax({
-          url: 'http://localhost:3000/upload',
+          url: `${backendURL}/upload`,
           type: 'POST',
           data: formData,
           processData: false,
