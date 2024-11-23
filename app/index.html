@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Mi primer libro digital</title>
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
   <!-- Librerías necesarias -->
   <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -50,10 +52,16 @@
       // Cargar las imágenes desde metadata.json y configurar el libro
       function loadBook() {
         $.getJSON('http://localhost:3000/imagenes/metadata.json', function (data) {
-          const imageUrls = [''].concat(data.images.map(img => `/imagenes/${img}`));
+          const imageUrls = [''].concat(data.images.map(img => `http://localhost:3000/imagenes/${img}`));
           const numberOfPages = imageUrls.length;
 
-          // Configuración del libro
+          // Destruir el libro si ya está inicializado
+          if ($('#book').data('initialized')) {
+            $('#book').turn('destroy'); // Limpia el libro
+            $('#book').html('<div class="cover"><h2>Mi libro </br>primer digital</h2></div>'); // Reinicia el contenido inicial
+          }
+
+          // Inicializar el libro
           $('#book').turn({
             acceleration: true,
             pages: numberOfPages,
@@ -67,6 +75,8 @@
             },
           });
 
+          $('#book').data('initialized', true); // Marca el libro como inicializado
+
           // Actualizar el número total de páginas
           $('#number-pages').text(numberOfPages);
 
@@ -79,7 +89,7 @@
               });
 
               if (imageUrls[page - 1]) {
-                element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" />');
+                element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" style="width:100%; height:auto;" />');
               } else {
                 element.html('<div class="data">Contenido para la página ' + page + '</div>');
               }
@@ -136,4 +146,5 @@
 
   <script src="./script.js"></script>
 </body>
+
 </html>
