@@ -1,13 +1,17 @@
 {
   "name": "librodigital",
   "version": "1.0.0",
+  "description": "Proyecto monorepo con pnpm",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm --filter '**' dev"
+    "dev": "pnpm --filter '**' run dev",
+    "test": "pnpm --filter '**' run test",
+    "lint": "pnpm --filter '**' run lint",
+    "install": "pnpm install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "devDependencies": {},
+  "dependencies": {}
 }
