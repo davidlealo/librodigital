@@ -9,11 +9,9 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  flex-direction: column;
 }
 
 h1 {
@@ -270,13 +268,6 @@ body {
 }
 
 
-.container{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-}
-
 /* Estilo general del summary cuando está cerrado (posición vertical) */
 details summary {
   writing-mode: vertical-rl;
@@ -314,4 +305,52 @@ details summary:hover {
 /* Contenedor del details (opcional, para margen o posicionamiento) */
 details {
   margin: 10px;
+}
+
+.menu-site{
+  display: flex;
+  flex-direction: row;
+}
+
+.container-body{
+  display: flex;
+  flex-direction: column;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #8e44ad;
+}
+
+.index{
+  margin: 200px;
+  padding: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 50px;
+
 }

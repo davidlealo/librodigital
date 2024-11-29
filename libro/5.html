@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>MI primer libro digital</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+  
+  <div class="menu-site"><ul>
+    <li><a class="active" href="index.html">Inicio</a></li>
+    <li><a href="n.html">NT1 & 2</a></li>
+    <li><a href="1.html">1ro & 2do</a></li>
+    <li><a href="3.html">3ro</a></li>
+    <li><a href="4.html">4to</a></li>
+    <li><a href="5.html">5to & 6to</a></li>
+  </ul></div>
+
+<div class="container-body">
+  <div id="book">
+    <div class="cover">
+      <h1>Mi primer libro digital</h1>
+    </div>
+  </div>
+
+  <div id="controls">
+    <label for="page-number">Página:</label>
+    <input type="text" size="3" id="page-number"> de <span id="number-pages"></span>
+  </div>
+
+  <div id="navigation">
+    <button id="prev-page" disabled>❮</button>
+    <div class="space-button"></div>
+    <button id="next-page">❯</button>
+  </div>
+
+  <div id="progress-bar">
+    <div id="progress"></div>
+  </div>
+  </div>
+</div>
+
+  <script type="text/javascript">
+    // Número total de páginas
+    var numberOfPages = 11;
+
+    // URLs de las imágenes
+    const imageUrls = [
+      '', // Página 1 (portada, sin imagen)
+      'img/56b/1.png',
+      'img/56b/2.png',
+      'img/56b/3.png',
+      'img/56b/4.png',
+      'img/56b/5.png',
+      'img/56b/6.png',
+      'img/56b/7.png',
+      'img/56b/8.png',
+      'img/56b/9.png',
+      'img/56b/10.png'
+    ];
+
+    // Agrega las páginas necesarias al libro
+    function addPage(page, book) {
+      if (!book.turn('hasPage', page)) {
+        // Crea el elemento para la página
+        var element = $('<div />', {
+          'class': 'page ' + ((page % 2 == 0) ? 'odd' : 'even'),
+          'id': 'page-' + page
+        });
+
+        // Si la página tiene una imagen asociada, la añade
+        if (imageUrls[page - 1]) {
+          element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" style="width:100%; height:auto;">');
+        } else {
+          element.html('<div class="data">Contenido para la página ' + page + '</div>');
+        }
+
+        // Añade la página al libro
+        book.turn('addPage', element, page);
+      }
+    }
+
+    $(window).ready(function () {
+      $('#book').turn({
+        acceleration: true,
+        pages: numberOfPages,
+        elevation: 50,
+        gradients: !$.isTouch,
+        when: {
+          turning: function (e, page, view) {
+            var range = $(this).turn('range', page);
+            for (page = range[0]; page <= range[1]; page++)
+              addPage(page, $(this));
+          },
+          turned: function (e, page) {
+            $('#page-number').val(page);
+          }
+        }
+      });
+
+      $('#number-pages').html(numberOfPages);
+
+      $('#page-number').keydown(function (e) {
+        if (e.keyCode == 13)
+          $('#book').turn('page', $('#page-number').val());
+      });
+    });
+    // Actualizar botones de navegación
+    $('#book').on('turned', function (event, page) {
+      document.getElementById('prev-page').disabled = page === 1;
+      document.getElementById('next-page').disabled = page === numberOfPages;
+    });
+
+    // Botones de navegación
+    document.getElementById('prev-page').addEventListener('click', () => {
+      $('#book').turn('previous');
+    });
+
+    document.getElementById('next-page').addEventListener('click', () => {
+      $('#book').turn('next');
+    });
+
+    $(window).bind('keydown', function (e) {
+      if (e.target && e.target.tagName.toLowerCase() != 'input') {
+        if (e.keyCode == 37) $('#book').turn('previous');
+        else if (e.keyCode == 39) $('#book').turn('next');
+      }
+    });
+  </script>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
