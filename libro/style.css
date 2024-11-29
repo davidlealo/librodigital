@@ -152,7 +152,7 @@ button:focus-visible {
 	width: 800px;
 	margin: 20px auto;
 	position: relative;
-	height: 450px;
+	height: 300px;
 }
 
 #book::before,
