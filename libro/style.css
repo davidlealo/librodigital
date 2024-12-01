@@ -248,24 +248,6 @@ body {
 	min-width: 200px;
 }
 
-/* Barra de progreso */
-#progress-bar {
-	width: 100%;
-	max-width: 800px;
-	height: 8px;
-	background-color: #ddd;
-	margin: 10px auto;
-	position: relative;
-	border-radius: 4px;
-}
-
-#progress {
-	width: 0;
-	height: 100%;
-	background-color: #8e44ad;
-	border-radius: 4px;
-	transition: width 0.3s ease;
-}
 
 
 /* Estilo general del summary cuando está cerrado (posición vertical) */
@@ -353,4 +335,24 @@ li a:hover:not(.active) {
   justify-content: space-between;
   gap: 50px;
 
+}
+
+/* Barra de progreso */
+#progress-bar {
+  width: 100%;
+  max-width: 800px;
+  height: 10px; /* Ajuste del alto para mayor visibilidad */
+  background-color: #ddd; /* Color de fondo claro */
+  margin: 10px auto;
+  position: relative;
+  border-radius: 5px; /* Bordes redondeados */
+  overflow: hidden; /* Asegura que el progreso no exceda los bordes */
+}
+
+#progress {
+  width: 0; /* Por defecto, sin progreso */
+  height: 100%;
+  background-color: #8e44ad; /* Color principal del progreso */
+  border-radius: 5px; /* Asegura bordes redondeados en progreso */
+  transition: width 0.5s ease; /* Transición suave para cambios de ancho */
 }
