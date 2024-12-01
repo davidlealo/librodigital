@@ -153,6 +153,20 @@
         }
       }
     });
+    function checkOrientation() {
+      if (window.innerWidth < window.innerHeight) {
+        document.body.classList.add("portrait");
+      } else {
+        document.body.classList.remove("portrait");
+      }
+    }
+
+    // Verificar orientación al cargar la página
+    checkOrientation();
+
+    // Escuchar cambios de orientación
+    window.addEventListener("resize", checkOrientation);
+
   </script>
 
   <script src="./script.js"></script>

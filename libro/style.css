@@ -356,3 +356,39 @@ li a:hover:not(.active) {
   border-radius: 5px; /* Asegura bordes redondeados en progreso */
   transition: width 0.5s ease; /* Transición suave para cambios de ancho */
 }
+
+/* Estilo base */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Evita el scroll innecesario */
+}
+
+/* Mostrar el texto en modo portrait */
+body.portrait::before {
+  content: "Por favor, gira tu dispositivo a horizontal para ver mejor el contenido";
+  position: fixed; /* Asegura que el mensaje esté siempre visible */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra el mensaje */
+  z-index: 9999; /* Asegura que esté por encima de todo */
+  color: #ffffff;
+  font-size: 3rem; /* Tamaño del texto grande */
+  font-weight: bold;
+  text-align: center;
+  background: #8e44ad; /* Fondo semitransparente */
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  animation: fade-in-out 3s infinite; /* Animación */
+}
+
+/* Animación para dar un efecto de parpadeo */
+@keyframes fade-in-out {
+  0%, 100% {
+      opacity: 0.5;
+  }
+  50% {
+      opacity: 1;
+  }
+}
