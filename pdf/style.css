@@ -147,10 +147,10 @@ button:focus-visible {
 }
 /* Estilo general del libro */
 #book {
-	width: 1000px;
+	width: 800px;
 	margin: 20px auto;
 	position: relative;
-	height: 472px;
+	height: 350px;
 }
 
 #book::before,

@@ -10,7 +10,7 @@
 <body>
   <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
-<!--
+  <!--
   <div class="menu-site">
     <ul>
       <li><a class="active" href="index.html">Inicio</a></li>
@@ -25,7 +25,7 @@
 
   <div class="container-body">
     <div id="book">
-     <!-- 
+      <!-- 
       <div class="cover">
         <h1>NT1 y NT2</h1>
       </div>
@@ -52,7 +52,7 @@
   <script type="text/javascript">
     $(window).ready(function () {
       const $progress = $('#progress'); // Barra de progreso
-      const totalPages = 122; // Número total de páginas
+      const totalPages = 244; // Número total de páginas
 
       // Inicialización del libro
       $('#book').turn({
@@ -128,131 +128,15 @@
           });
 
           // Si la página tiene una imagen asociada, la añade
-          const imageUrls = [
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_001.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_002.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_003.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_004.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_005.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_006.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_007.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_008.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_009.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_010.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_011.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_012.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_013.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_014.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_015.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_016.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_017.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_018.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_019.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_020.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_021.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_022.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_023.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_024.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_025.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_026.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_027.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_028.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_029.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_030.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_031.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_032.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_033.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_034.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_035.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_036.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_037.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_038.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_039.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_040.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_041.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_042.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_042.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_043.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_044.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_045.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_046.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_047.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_048.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_049.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_050.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_051.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_052.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_053.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_054.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_055.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_056.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_057.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_058.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_059.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_060.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_061.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_062.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_063.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_064.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_065.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_066.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_067.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_068.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_069.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_070.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_071.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_072.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_073.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_074.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_075.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_076.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_077.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_078.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_079.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_080.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_081.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_082.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_083.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_084.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_085.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_086.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_087.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_088.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_089.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_090.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_091.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_092.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_093.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_094.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_095.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_096.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_097.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_098.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_099.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_100.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_101.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_102.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_103.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_104.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_105.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_106.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_107.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_108.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_109.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_110.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_111.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_112.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_113.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_114.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_115.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_116.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_117.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_118.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_119.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_120.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_121.png',
-            'img/PDIGITAL ajuslom 9230 LIBRO DE ARTE FUNDACION PATERNITAS 01_Page_122.png'
-          ];
+          const imageUrls = [];
+
+          for (let i = 1; i <= totalPages; i++) {
+            // Formatea el número con ceros iniciales hasta 4 dígitos
+            const fileName = String(i).padStart(4, '0') + '.png';
+            imageUrls.push(`img/pagina/${fileName}`);
+          }
+
+          console.log(imageUrls);
 
           if (imageUrls[page - 1]) {
             element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" style="width:100%; height:auto;">');
