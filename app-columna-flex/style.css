@@ -396,9 +396,16 @@ body.portrait::before {
   }
 }
 
-@media (max-width: 480px) { /* Pantallas pequeñas, como móviles */
+@media (max-width: 768px) { 
 	#book {
-		width: 85%;
-		height: auto; /* Deja que el contenido fluya */
+		width: 400px; 
+		height: auto; 
+	}
+}
+
+@media (max-width: 480px) { 
+	#book {
+		width: 260px;
+		height: auto; 
 	}
 }
