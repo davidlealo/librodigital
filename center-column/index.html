@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>MI primer libro digital</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+  <!--
+  <div class="menu-site">
+    <ul>
+      <li><a class="active" href="index.html">Inicio</a></li>
+      <li><a href="n.html">NT1 & 2</a></li>
+      <li><a href="1.html">1ro & 2do</a></li>
+      <li><a href="3.html">3ro</a></li>
+      <li><a href="4.html">4to</a></li>
+      <li><a href="5.html">5to & 6to</a></li>
+    </ul>
+  </div>
+  -->
+
+  <div class="container-body">
+    <div id="book">
+      <!-- 
+      <div class="cover">
+        <h1>NT1 y NT2</h1>
+      </div>
+    -->
+    </div>
+
+    <div id="controls">
+      <label for="page-number">Página:</label>
+      <input type="text" size="3" id="page-number"> de <span id="number-pages"></span>
+    </div>
+
+    <div id="navigation">
+      <button id="prev-page" disabled>❮</button>
+      <div class="space-button"></div>
+      <button id="next-page">❯</button>
+    </div>
+
+    <div id="progress-bar">
+      <div id="progress"></div>
+    </div>
+  </div>
+  </div>
+
+  <script type="text/javascript">
+    $(window).ready(function () {
+      const $progress = $('#progress'); // Barra de progreso
+      const totalPages = 246; // Número total de páginas
+
+      // Inicialización del libro
+      $('#book').turn({
+        acceleration: true,
+        pages: totalPages,
+        elevation: 50,
+        gradients: !$.isTouch,
+        when: {
+          turning: function (e, page, view) {
+            // Agrega páginas al rango visible
+            const range = $(this).turn('range', page);
+            for (let i = range[0]; i <= range[1]; i++) {
+              addPage(i, $(this));
+            }
+            // Actualiza la barra de progreso
+            updateProgress(page, totalPages);
+          },
+          turned: function (e, page) {
+            // Actualiza el número de página en el campo de entrada
+            $('#page-number').val(page);
+            // Actualiza la barra de progreso
+            updateProgress(page, totalPages);
+
+            // Actualiza los botones de navegación
+            updateNavigationButtons(page, totalPages);
+          }
+        }
+      });
+
+      $('#number-pages').html(totalPages); // Muestra el número total de páginas
+
+      // Maneja el ingreso manual de la página
+      $('#page-number').keydown(function (e) {
+        if (e.keyCode === 13) { // Enter
+          const page = parseInt($('#page-number').val(), 10);
+          if (page >= 1 && page <= totalPages) {
+            $('#book').turn('page', page);
+          }
+        }
+      });
+
+      // Botones de navegación
+      $('#prev-page').on('click', function () {
+        $('#book').turn('previous');
+      });
+
+      $('#next-page').on('click', function () {
+        $('#book').turn('next');
+      });
+
+      // Inicializa la barra de progreso
+      updateProgress(1, totalPages);
+
+      // Función para actualizar la barra de progreso
+      function updateProgress(currentPage, totalPages) {
+        const progressPercentage = ((currentPage - 1) / (totalPages - 1)) * 100;
+        $progress.css('width', progressPercentage + '%');
+        console.log(`Progreso actualizado: ${progressPercentage}%`);
+      }
+
+      // Función para habilitar/deshabilitar botones de navegación
+      function updateNavigationButtons(currentPage, totalPages) {
+        $('#prev-page').prop('disabled', currentPage === 1);
+        $('#next-page').prop('disabled', currentPage === totalPages);
+      }
+
+      // Función para agregar páginas al libro
+      function addPage(page, book) {
+        if (!book.turn('hasPage', page)) {
+          const element = $('<div />', {
+            'class': 'page ' + ((page % 2 === 0) ? 'odd' : 'even'),
+            'id': 'page-' + page
+          });
+
+          // Si la página tiene una imagen asociada, la añade
+          const imageUrls = [];
+
+          for (let i = 1; i <= totalPages; i++) {
+            // Formatea el número con ceros iniciales hasta 4 dígitos
+            const fileName = String(i).padStart(4, '0') + '.png';
+            imageUrls.push(`img/pagina/${fileName}`);
+          }
+
+          console.log(imageUrls);
+
+          if (imageUrls[page - 1]) {
+            element.html('<img src="' + imageUrls[page - 1] + '" alt="Page ' + page + '" style="width:100%; height:auto;">');
+          } else {
+            element.html('<div class="data">Contenido para la página ' + page + '</div>');
+          }
+
+          // Añade la página al libro
+          book.turn('addPage', element, page);
+        }
+      }
+    });
+
+    function checkOrientation() {
+      if (window.innerWidth < window.innerHeight) {
+        document.body.classList.add("portrait");
+      } else {
+        document.body.classList.remove("portrait");
+      }
+    }
+
+    // Verificar orientación al cargar la página
+    checkOrientation();
+
+    // Escuchar cambios de orientación
+    window.addEventListener("resize", checkOrientation);
+
+  </script>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
