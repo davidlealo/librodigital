@@ -430,3 +430,21 @@ body.portrait::before {
 }
 
 
+.site{
+  display: flex;
+  flex-direction: row;
+}
+
+.side-r{
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+}
+
+#prev-page{
+  margin-right: 30px;
+}
+
+#next-page{
+  margin-left: 30px;
+}
