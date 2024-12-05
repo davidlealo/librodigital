@@ -146,10 +146,10 @@ button:focus-visible {
 }
 /* Estilo general del libro */
 #book {
-	width: 800px;
+	width: 800px; /* El 80% del ancho de la ventana */
+	height: 350px; /* El 40% del alto de la ventana */
 	margin: 20px auto;
 	position: relative;
-	height: 350px;
 }
 
 #book::before,
