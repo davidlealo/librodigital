@@ -3,6 +3,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -31,9 +32,11 @@ h1 {
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.vanilla:hover {
   filter: drop-shadow(0 0 2em #f7df1eaa);
 }
@@ -58,7 +61,7 @@ h1 {
   color: #FFFFFF;
   cursor: pointer;
   display: inline-block;
-  font-family: din-round,sans-serif;
+  font-family: din-round, sans-serif;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: .8px;
@@ -124,9 +127,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -137,114 +142,121 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
 }
+
 /* Estilo general del libro */
 #book {
-	width: 800px; /* El 80% del ancho de la ventana */
-	height: 350px; /* El 40% del alto de la ventana */
-	margin: 20px auto;
-	position: relative;
+  width: 800px;
+  /* El 80% del ancho de la ventana */
+  height: 350px;
+  /* El 40% del alto de la ventana */
+  margin: 20px auto;
+  position: relative;
 }
 
 #book::before,
 #book::after {
-	content: '';
-	position: absolute;
-	top: 0;
-	width: 50px;
-	/* Tamaño del área activa */
-	height: 100%;
-	z-index: 1;
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 50px;
+  /* Tamaño del área activa */
+  height: 100%;
+  z-index: 1;
 }
 
 #book::before {
-	left: 0;
-	background: rgba(0, 0, 0, 0.05); /* Transparencia para indicar borde izquierdo */
-  }
-  
-  #book::after {
-	right: 0;
-	background: rgba(0, 0, 0, 0.05); /* Transparencia para indicar borde derecho */
-  }
+  left: 0;
+  background: rgba(0, 0, 0, 0.05);
+  /* Transparencia para indicar borde izquierdo */
+}
+
+#book::after {
+  right: 0;
+  background: rgba(0, 0, 0, 0.05);
+  /* Transparencia para indicar borde derecho */
+}
 
 #book .page {
-	width: 100%;
-	aspect-ratio: 16 / 9;
-	position: relative;
-	overflow: hidden;
-	background: #fff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #book .page img {
-	width: 80%;
-	height: 80%;
-	object-fit: cover;
+  width: 80%;
+  height: 80%;
+  object-fit: cover;
 }
 
 #book .cover {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-family: 'Arial', sans-serif;
-	font-size: 2.5vw;
-	font-weight: bold;
-	text-align: center;
-	background: #8e44ad;
-	color: white;
-	padding: 30px;
-	width: 70%;
-	height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  font-size: 2.5vw;
+  font-weight: bold;
+  text-align: center;
+  background: #8e44ad;
+  color: white;
+  padding: 30px;
+  width: 70%;
+  height: 100%;
 }
 
 body {
-	background-color: antiquewhite;
+  background-color: antiquewhite;
 }
 
 /* Controles de navegación */
 #controls {
-	text-align: center;
-	margin: 10px auto;
+  text-align: center;
+  margin: 10px auto;
 }
 
 #navigation {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 10px auto;
-	max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px auto;
+  max-width: 800px;
 }
 
 #navigation button {
-	background-color: #8e44ad;
-	color: white;
-	border: none;
-	padding: 10px 20px;
-	font-size: 16px;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: background-color 0.3s;
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 #navigation button:hover {
-	background-color: #6c3483;
+  background-color: #6c3483;
 }
 
 #navigation button:disabled {
-	background-color: #ccc;
-	cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
-.space-button{
-	min-width: 200px;
+.space-button {
+  min-width: 200px;
 }
 
 
@@ -262,25 +274,31 @@ details summary {
   border: 1px solid #ddd;
   border-radius: 5px;
   user-select: none;
-  transition: all 0.3s ease; /* Transición suave */
+  transition: all 0.3s ease;
+  /* Transición suave */
 }
 
 /* Estilo cuando el summary está abierto (posición horizontal) */
 details[open] summary {
-  writing-mode: horizontal-tb; /* Cambia a posición horizontal */
+  writing-mode: horizontal-tb;
+  /* Cambia a posición horizontal */
   background-color: #1CB0F6;
   color: white;
-  font-size: 20px; /* Incrementar el tamaño */
+  font-size: 20px;
+  /* Incrementar el tamaño */
   font-weight: bold;
   text-align: left;
   padding: 15px;
-  border-radius: 5px 5px 0 0; /* Redondear las esquinas superiores */
-  border-bottom: none; /* Quitar borde inferior */
+  border-radius: 5px 5px 0 0;
+  /* Redondear las esquinas superiores */
+  border-bottom: none;
+  /* Quitar borde inferior */
 }
 
 /* Hover para ambos estados */
 details summary:hover {
-  background-color: #1399D5; /* Cambiar tono al pasar el cursor */
+  background-color: #1399D5;
+  /* Cambiar tono al pasar el cursor */
 }
 
 /* Contenedor del details (opcional, para margen o posicionamiento) */
@@ -288,12 +306,12 @@ details {
   margin: 10px;
 }
 
-.menu-site{
+.menu-site {
   display: flex;
   flex-direction: row;
 }
 
-.container-body{
+.container-body {
   display: flex;
   flex-direction: column;
 }
@@ -326,7 +344,7 @@ li a:hover:not(.active) {
   background-color: #8e44ad;
 }
 
-.index{
+.index {
   margin: 200px;
   padding: 50px;
   display: flex;
@@ -340,29 +358,36 @@ li a:hover:not(.active) {
 #progress-bar {
   width: 100%;
   max-width: 800px;
-  height: 10px; /* Ajuste del alto para mayor visibilidad */
-  background-color: #ddd; /* Color de fondo claro */
+  height: 10px;
+  /* Ajuste del alto para mayor visibilidad */
+  background-color: #ddd;
+  /* Color de fondo claro */
   margin: 10px auto;
   position: relative;
-  border-radius: 5px; /* Bordes redondeados */
-  overflow: hidden; /* Asegura que el progreso no exceda los bordes */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  overflow: hidden;
+  /* Asegura que el progreso no exceda los bordes */
 }
 
 #progress {
-  width: 0; /* Por defecto, sin progreso */
+  width: 0;
+  /* Por defecto, sin progreso */
   height: 100%;
-  background-color: #8e44ad; /* Color principal del progreso */
-  border-radius: 5px; /* Asegura bordes redondeados en progreso */
-  transition: width 0.5s ease; /* Transición suave para cambios de ancho */
+  background-color: #8e44ad;
+  /* Color principal del progreso */
+  border-radius: 5px;
+  /* Asegura bordes redondeados en progreso */
+  transition: width 0.5s ease;
+  /* Transición suave para cambios de ancho */
 }
 
 /* Estilo base */
 body {
   margin: 0;
-  padding: 0;
-  overflow: hidden; /* Evita el scroll innecesario */
+  padding: 10px;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
@@ -370,42 +395,37 @@ body {
 /* Mostrar el texto en modo portrait */
 body.portrait::before {
   content: "Por favor, gira tu dispositivo a horizontal para ver mejor el contenido";
-  position: fixed; /* Asegura que el mensaje esté siempre visible */
+  position: fixed;
+  /* Asegura que el mensaje esté siempre visible */
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Centra el mensaje */
-  z-index: 9999; /* Asegura que esté por encima de todo */
+  transform: translate(-50%, -50%);
+  /* Centra el mensaje */
+  z-index: 9999;
+  /* Asegura que esté por encima de todo */
   color: #ffffff;
-  font-size: 3rem; /* Tamaño del texto grande */
+  font-size: 3rem;
+  /* Tamaño del texto grande */
   font-weight: bold;
   text-align: center;
-  background: #8e44ad; /* Fondo semitransparente */
+  background: #8e44ad;
+  /* Fondo semitransparente */
   padding: 20px 30px;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  animation: fade-in-out 3s infinite; /* Animación */
+  animation: fade-in-out 3s infinite;
+  /* Animación */
 }
 
 /* Animación para dar un efecto de parpadeo */
 @keyframes fade-in-out {
-  0%, 100% {
-      opacity: 0.5;
+
+  0%,
+  100% {
+    opacity: 0.5;
   }
+
   50% {
-      opacity: 1;
+    opacity: 1;
   }
-}
-
-@media (max-width: 768px) { 
-	#book {
-		width: 400px; 
-		height: auto; 
-	}
-}
-
-@media (max-width: 480px) { 
-	#book {
-		width: 260px;
-		height: auto; 
-	}
 }
